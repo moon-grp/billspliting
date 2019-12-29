@@ -46,6 +46,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'signup',
   data: () => ({
@@ -66,10 +67,21 @@ export default {
   methods: {
     validate() {
       if (this.$refs.form.validate()) {
-        alert(this.username)
-        this.username = ''
-        this.email = ''
-        this.password = ''
+        axios.post('https://billsplitapi.herokuapp.com/bills/signup', {
+          username: this.username,
+          email: this.email,
+          password: this.password
+        })
+        .then(
+          res =>{
+            console.log(res)
+          }
+        )
+        .catch(
+          err=>{
+            console.log(err, err.res)
+          }
+        )
       }
     }
   }
